@@ -43,7 +43,7 @@ def find_normal_template(template, image, algo=cv2.TM_CCORR_NORMED):
         if found is None or maxVal > found[0]:
             found = (maxVal, maxLoc, r)
 
-    if found[0] > TEMP_THRESHOLD:
+    if found and found[0] > TEMP_THRESHOLD:
         return True
 
     return False

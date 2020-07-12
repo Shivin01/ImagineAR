@@ -108,6 +108,7 @@ class CapturePhoto(viewsets.ModelViewSet):
     def capture_photo(self, request):
         # print(request.data['image'])
         image = request.data['image']
+        username = request.data['username']
         block = image.split(";")
         contentType = block[0].split(":")[1]
         realData = block[1].split(",")[1]
@@ -121,8 +122,9 @@ class CapturePhoto(viewsets.ModelViewSet):
 
         dest = "/Users/mayankprasoon/personal/ImagineAR/ImagineAR/camera/react_frontend/src/batman.obj"
 
-        for temp in Template.objects.all():
+        for temp in Template.objects.filter(user=User.objects.get(username=username)):
             print("In loop")
+            print(temp.name)
             image = cv2.imread(filename)
             template = cv2.imread(temp.template.name)
             if find_normal_template(template, image):
@@ -134,10 +136,15 @@ class CapturePhoto(viewsets.ModelViewSet):
                 if temp.model:
                     print("H2")
                     # print(tem)
-                    print(temp.model.name)
-                    print(os.path.isfile(temp.model.name))
-                    print(os.path.isfile(dest))
+                    # print(temp.model.name)
+                    # print(os.path.isfile(temp.model.name))
+                    # print(os.path.isfile(dest))
                     copy(temp.model.name, dest)
+
+                    k = os.path.dirname(os.path.abspath(__file__))
+                    k = os.path.join(k, 'react_frontend', 'src', 'batman.obj')
+                    copy(temp.model.name, k)
+
                 break
 
         print(req_temp)
