@@ -11,6 +11,7 @@ SCALE_END = 1.0
 ED_MIN_VAL = 50
 ED_MAX_VAL = 200
 
+
 def find_normal_template(template, image, algo=cv2.TM_CCORR_NORMED):
     """
     The method finds the template within the image with normal template matching while considering resized
@@ -19,6 +20,7 @@ def find_normal_template(template, image, algo=cv2.TM_CCORR_NORMED):
 
     found = None
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    print(template)
     template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
     template = cv2.Canny(template, ED_MIN_VAL, ED_MAX_VAL)
 
@@ -43,7 +45,7 @@ def find_normal_template(template, image, algo=cv2.TM_CCORR_NORMED):
         if found is None or maxVal > found[0]:
             found = (maxVal, maxLoc, r)
 
-    if found[0] > TEMP_THRESHOLD:
+    if found and found[0] > TEMP_THRESHOLD:
         return True
 
     return False
@@ -106,6 +108,7 @@ def find_img_pyramid_template(template, image, algo=cv2.TM_CCORR_NORMED):
         return True
 
     return False
+
 
 def find_img_with_updated_perspective(template, image, algo=cv2.TM_CCORR_NORMED):
     """
