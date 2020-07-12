@@ -1,0 +1,13 @@
+staticfiles
+.idea/
+untitled.iml
+venv
+static/.DS_Store
+*.DS_Store
+Dockerfile
+media
+node_modules
+*.log
+*/*/tests_output
+*/tests_output
+.env
