@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  imaginear:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      network: host
+    container_name: imaginar
+    environment:
+      DJANGO_SETTINGS_MODULE: 'imaginear.settings'
+    ports:
+      - "8000:8000"
+      - "3000:80"
